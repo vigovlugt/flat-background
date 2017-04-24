@@ -10,24 +10,46 @@ var xSpeed = [
     0.125,
     0.0625
 ];
-var widths = [, , , , ]
+var width = 0;
 
 var sun;
+var cloud = {"xSpeed":0,"x":0,"y":0,"size":1,"cloud":"","cloudcon":""};
+var clouds = [,,,,]
 
 var colorSchemes;
 
 
 document.onload = load();
 function load() {
+    /*for (var i = 0; i < clouds.length; i++) {
+        clouds[i] = new cloud{
+            xSpeed[Math.floor(Math.random()*5),
+            2500+Math.random()*500,
+            540 + 540 * Math.random(),
+            1,
+            "cloud" + i.toString(),
+            "cloudcon" + i.toString()
+        };*/
+
     layers = [document.getElementById("img0"), document.getElementById("img1"), document.getElementById("img2"), document.getElementById("img3"), document.getElementById("img4")];
     layercons = [document.getElementById("imgcon0"), document.getElementById("imgcon1"), document.getElementById("imgcon2"), document.getElementById("imgcon3"), document.getElementById("imgcon4")];
-    widths = [layers[0].getBoundingClientRect.width, layers[1].getBoundingClientRect.width, layers[2].getBoundingClientRect.width, layers[3].getBoundingClientRect.width, layers[4].getBoundingClientRect.width]
+    width = layers[0].getBoundingClientRect().width;
+
+
+    if(width == 0){
+        width= 1920*2;
+    }
+    width= 1920*2;
     sun = document.getElementById("sun");
 
     for (var i = 0; i < layers.length; i++) {
-        x[i] = Math.random() * -1920;
-        layers[i].setAttribute("d", svgpathd);
+        x[i] = Math.random() * -width;
+
+        layers[i].setAttribute("d", mountaind);
     }
+
+    loadWidth();
+    loadColor(2);
 
     TweenMax.to("#imgs", 2, {
         opacity: "1"
@@ -42,18 +64,17 @@ function load() {
         delay: .5
     });
 
-    loadColor(0);
-
     setInterval(update, 1000 / 30);
 }
+
 
 
 function update() {
     for (var i = 0; i < layers.length; i++) {
         x[i] -= xSpeed[i] * 5;
 
-        if (x[i] <= -1920) {
-            x[i] = 0;
+        if (x[i] <= -width/2) {
+            x[i] += width/2;
         }
         layercons[i].setAttribute("x", x[i]);
     }
@@ -71,8 +92,15 @@ function loadColor(index) {
                 
             }else if(i == 5){
                 sun.setAttribute("fill", colorSchemes[index].colors[i]);
-                console.log(i);
+            }else if(i == 6){
+                document.body.style.backgroundColor = colorSchemes[index].colors[i]; 
             }
     }
 
+}
+
+function loadWidth(){
+    var newWidth = (1080/$( window ).height()) * 1080 * 2;
+    //$("#imgs").width(newWidth);
+    console.log(newWidth);
 }
