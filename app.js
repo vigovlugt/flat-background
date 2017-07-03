@@ -17,7 +17,7 @@ var sun;
 var clouds = [,,,,];
 
 var colorSchemes;
-
+var themePicker;
 
 document.onload = load();
 
@@ -51,7 +51,7 @@ function load() {
 
     loadWidth();
     loadColor(2);
-
+    loadTheme();
     TweenMax.to("#imgs", 2, {
       opacity: "1"
     });
@@ -117,6 +117,19 @@ function load() {
       }
     }
 
+  }
+
+  function loadTheme(){
+    var html;
+    html += "<ul>";
+    for (var i = 0; i < colorSchemes.length; i++) {
+      html += "<li>";
+      html += "<div class=theme style=background-color:"+ colorSchemes[i].colors[0] +";></div>"
+      html += "</li>";
+    }
+    html += "</ul>";
+    themePicker = document.getElementById("themePicker");
+    themePicker.innerHTML = html;
   }
 
   function loadWidth() {
