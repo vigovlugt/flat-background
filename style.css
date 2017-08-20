@@ -10,6 +10,7 @@ body {
     width: 200%;
     left:0px;
 }
+
 #themePicker{
     background-color: rgb(238, 238, 238);
     opacity: 1;
@@ -19,13 +20,13 @@ body {
     position: absolute;
     display:inline-block;
     height: 40px;
+    width: 110px;
 }
+
 .theme{
   width: 30px;
   height: 30px;
-  right: 10px;
-  top:10px;
-  left:10px;
+  top:5px;
   position: absolute;
   border-radius:5px;
 }

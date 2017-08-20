@@ -24,18 +24,12 @@ document.onload = load();
 
 
 function load() {
-  for (var i = 0; i < clouds.length; i++) {
-      newCloud(i);
-      console.log(clouds[i]);
-      clouds[i].cloud.setAttribute("d", cloudd);
-      clouds[i].cloud.setAttribute("y", clouds[i].y);
-      clouds[i].cloud.setAttribute("fill", cloudColor);
-    }
+    loadClouds();
 
     layers = [document.getElementById("img0"), document.getElementById("img1"), document.getElementById("img2"), document.getElementById("img3"), document.getElementById("img4")];
     layercons = [document.getElementById("imgcon0"), document.getElementById("imgcon1"), document.getElementById("imgcon2"), document.getElementById("imgcon3"), document.getElementById("imgcon4")];
     width = layers[0].getBoundingClientRect().width;
-    cloudWidth = clouds[0].cloud.getBoundingClientRect().width;
+
 
     if (width == 0) {
       width = 1920 * 2;
@@ -68,7 +62,17 @@ function load() {
     setInterval(update, 1000 / 30);
   }
 
-
+  function loadClouds(){
+    return;
+    for (var i = 0; i < clouds.length; i++) {
+        newCloud(i);
+        console.log(clouds[i]);
+        clouds[i].cloud.setAttribute("d", cloudd);
+        clouds[i].cloud.setAttribute("y", clouds[i].y);
+        clouds[i].cloud.setAttribute("fill", cloudColor);
+        cloudWidth = clouds[0].cloud.getBoundingClientRect().width;
+      }
+  }
 
   function update() {
     for (var i = 0; i < layers.length; i++) {
@@ -79,6 +83,8 @@ function load() {
       }
       layercons[i].setAttribute("x", x[i]);
     }
+
+    return;
 
     for (var i = 0; i < clouds.length; i++) {
       clouds[i].x -= clouds[i].xSpeed;
@@ -120,15 +126,13 @@ function load() {
   }
 
   function loadTheme(){
-    var html;
-    html += "<ul>";
+    var html = "";
     for (var i = 0; i < colorSchemes.length; i++) {
-      html += "<li>";
-      html += "<div class=theme style=background-color:"+ colorSchemes[i].colors[0] +";></div>"
-      html += "</li>";
+      html += "<div class=theme style=background-color:"+ colorSchemes[i].colors[0] +";left:" + (i*35 + 5) + "px; onclick=loadColor("+ i +")></div>"
     }
-    html += "</ul>";
+
     themePicker = document.getElementById("themePicker");
+    themePicker.style.width = colorSchemes.length * 40 + 10;
     themePicker.innerHTML = html;
   }
 
